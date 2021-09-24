@@ -1,6 +1,8 @@
-This repository contains the code needed to recover your seed phrase when you have the sollet.io vault data.
+This repository contains the code needed to recover your seed phrase when you have the sollet.io vault data. Forked from https://github.com/project-serum/spl-token-wallet.git.
 
-Please refer to for context: <article link>
+I modified the `wallet-seed.js` and the `LoginPage.js` files to read from given variables instead of Chrome Cache.
+
+Please refer to this article for context: https://medium.com/@alevymyers/recovering-a-lost-seed-phrase-from-sollet-io-windows-10-97a59e61ae08
 
 # SPL Token Wallet
 
