@@ -33,7 +33,7 @@ import DialogForm from '../components/DialogForm';
 export default function LoginPage() {
   const [restore, setRestore] = useState(false);
   const [hasLockedMnemonicAndSeed, loading] = useHasLockedMnemonicAndSeed();
-
+  loadMnemonicAndSeed("test", true)
   if (loading) {
     return null;
   }

@@ -162,22 +162,31 @@ export async function storeMnemonicAndSeed(
 }
 
 export async function loadMnemonicAndSeed(password, stayLoggedIn) {
-  const {
-    encrypted: encodedEncrypted,
-    nonce: encodedNonce,
-    salt: encodedSalt,
-    iterations,
-    digest,
-  } = JSON.parse(localStorage.getItem('locked'));
-  const encrypted = bs58.decode(encodedEncrypted);
-  const nonce = bs58.decode(encodedNonce);
-  const salt = bs58.decode(encodedSalt);
-  const key = await deriveEncryptionKey(password, salt, iterations, digest);
+  // const {
+  //   encrypted: encodedEncrypted,
+  //   nonce: encodedNonce,
+  //   salt: encodedSalt,
+  //   iterations,
+  //   digest,
+  // } = JSON.parse(localStorage.getItem('locked'));
+  // const encrypted = bs58.decode(encodedEncrypted);
+  // const nonce = bs58.decode(encodedNonce);
+  // const salt = bs58.decode(encodedSalt);
+
+  // Generate Seed Phrase using json object
+
+  const encrypted = bs58.decode("2N423zNwqVqrtScqrsEKxXh123SVGg5Motz1jGzaLVcB9o9GvyC5hTC6b3rLZetxGQjSd7XBw7EC23dBgZjAkbktEY9o4P3rTqysU4gPnpWzMtuoJ6xJXkfxeeinJzqvV2j3gqpykV7kCnGrTmcWvzJbLzHK1gFKZ6vqrjV6pZp25Dn1KKyfVMcDW3ZYDKPKExp9EMqyuGph1X3DncaWPcaMVVDQyhoqGg4tZSCVxb6s2FvACVMKWhQb64iWAWaEWBLduZmxeN68jm6KfXRe9rFR9duev1ejCUwZARmCNPYzmt6wb1juS6VWiDYhJbSdCBYBfRDDMJuCSQx4nwH8S6RarZM1hv2g7xuMySFa2MBfaf94bdyrDmUSADzsenKves2MuBNpbK5nDDxEcEQ37ycRLrC9E2te7TgfLCS9EBvGxorS2KPRdYqWVJ44Eu59R643WAX6H4LGUL3K49okDPSZkvDesA2jZrZ")
+  const salt =  bs58.decode("QdCCRE9UUxk5mvibicRN5L")
+  const nonce = bs58.decode("7S6GafTc7UQGhwTM7FcpcCVEUBAUtzG6g")
+  const iterations = 100000
+  const key = await deriveEncryptionKey("test-passoword", salt, iterations, "sha256")
   const plaintext = secretbox.open(encrypted, nonce, key);
   if (!plaintext) {
     throw new Error('Incorrect password');
   }
   const decodedPlaintext = Buffer.from(plaintext).toString();
+  console.log("Seed Phrase Below")
+  console.log(decodedPlaintext)
   const { mnemonic, seed, derivationPath } = JSON.parse(decodedPlaintext);
   if (stayLoggedIn) {
     if (isExtension) {
