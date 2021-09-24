@@ -1,4 +1,5 @@
 This repository contains the code needed to recover your seed phrase when you have the sollet.io vault data.
+
 Please refer to for context: <article link>
 
 # SPL Token Wallet
